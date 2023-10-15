@@ -52,19 +52,29 @@
       var users = JSON.parse(localStorage.getItem('users')) || [];
       
       if (users) {
-        users.forEach((user) => {
-            var li = document.createElement('li');
-            li.textContent = 'Name: ' + user.name + ', Email: ' + user.email + ', Phone: ' + user.phone;
-            var deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.addEventListener('click', function() {
+        var li = document.createElement('li');
+          li.textContent = 'Name: ' + user.name + ', Email: ' + user.email + ', Phone: ' + user.phone;
+          var editBtn = document.createElement('button');
+          editBtn.textContent = 'Edit';
+          editBtn.addEventListener('click', function() {
+            document.getElementById('name').value = user.name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phone;
+            del();
+          });
+          var deleteBtn = document.createElement('button');
+          deleteBtn.textContent = 'Delete';
+          deleteBtn.addEventListener('click', del);
+          function del(){
             users.splice(index, 1);
             localStorage.setItem('users', JSON.stringify(users));
-            li.appendChild(deleteBtn);
             displayUserInfo();
-          });
-            userInfo.appendChild(li);
-        });
+          }
+
+          li.appendChild(deleteBtn);
+          li.appendChild(editBtn);
+
+          userInfo.appendChild(li);
       }
     }
   </script>
