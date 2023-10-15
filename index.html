@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Information</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div>
+    <h2>User Information</h2>
+    <form id="userForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required><br><br>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" required><br><br>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <div>
+    <h2>Display Information</h2>
+    <ul id="userInfo"></ul>
+  </div>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
+      var user = { name: name, email: email, phone: phone };
+
+      var users = JSON.parse(localStorage.getItem('users')) || [];
+
+      users.push(user);
+
+      localStorage.setItem('users', JSON.stringify(users));
+
+      displayUserInfo();
+    });
+
+    function displayUserInfo(email) {
+      var userInfo = document.getElementById('userInfo');
+      userInfo.innerHTML = '';
+
+      var users = JSON.parse(localStorage.getItem('users')) || [];
+      
+      if (users) {
+        users.forEach((user) => {
+            var li = document.createElement('li');
+            li.textContent = 'Name: ' + user.name + ', Email: ' + user.email + ', Phone: ' + user.phone;
+            userInfo.appendChild(li);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
