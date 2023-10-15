@@ -55,6 +55,14 @@
         users.forEach((user) => {
             var li = document.createElement('li');
             li.textContent = 'Name: ' + user.name + ', Email: ' + user.email + ', Phone: ' + user.phone;
+            var deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', function() {
+            users.splice(index, 1);
+            localStorage.setItem('users', JSON.stringify(users));
+            li.appendChild(deleteBtn);
+            displayUserInfo();
+          });
             userInfo.appendChild(li);
         });
       }
